@@ -33,7 +33,6 @@
     }
     .lang-btn:hover { background: rgba(255,255,255,0.15); }
 
-    /* Hamburger button */
     .hamburger {
       background: transparent;
       border: none;
@@ -49,10 +48,8 @@
       height: 3px;
       background: #fff;
       border-radius: 2px;
-      transition: 0.3s;
     }
 
-    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -75,10 +72,10 @@
       text-decoration: none;
       font-size: 1rem;
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
     }
     .sidebar a:hover { background: rgba(255,255,255,0.1); }
 
-    /* Overlay */
     .overlay {
       position: fixed;
       inset: 0;
@@ -90,10 +87,21 @@
     }
     .overlay.show { opacity: 1; pointer-events: auto; }
 
-    /* Content */
     .content { padding: 40px 20px; text-align: center; }
 
-    /* RTL adjustments */
+    /* Pages: hidden by default */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .seasons-list {
+      margin-top: 30px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 2;
+    }
+
     [dir="rtl"] .sidebar {
       left: auto;
       right: 0;
@@ -101,6 +109,7 @@
     }
     [dir="rtl"] .sidebar.open { transform: translateX(0); }
     [dir="rtl"] .site-header { flex-direction: row-reverse; }
+    [dir="rtl"] .seasons-list { text-align: right; }
   </style>
 </head>
 <body>
@@ -116,25 +125,43 @@
   </header>
 
   <aside class="sidebar" id="sidebar">
-    <a href="#" data-i18n="menuPrevious">Previous Seasons</a>
-    <a href="#" data-i18n="menuSquad">Squad</a>
-    <a href="#" data-i18n="menuFixtures">Fixtures</a>
+    <a data-page="previous" data-i18n="menuPrevious">Previous Seasons</a>
+    <a data-page="squad" data-i18n="menuSquad">Squad</a>
+    <a data-page="fixtures" data-i18n="menuFixtures">Fixtures</a>
   </aside>
 
   <div class="overlay" id="overlay"></div>
 
   <main class="content">
-    <h1 data-i18n="welcome">Welcome to Al Hashemeya SC</h1>
-    <p data-i18n="subtitle">Home of the club — Prince Mohammed Stadium, Zarqa</p>
 
-    <section style="margin-top: 50px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
-      <h2 data-i18n="prevSeasonsTitle">Previous Seasons</h2>
-      <ul style="margin-top: 16px; line-height: 2;">
+    <!-- HOME PAGE -->
+    <section class="page active" id="page-home">
+      <h1 data-i18n="welcome">Welcome to Al Hashemeya SC</h1>
+      <p data-i18n="subtitle">Home of the club — Prince Mohammed Stadium, Zarqa</p>
+    </section>
+
+    <!-- PREVIOUS SEASONS PAGE -->
+    <section class="page" id="page-previous">
+      <h1 data-i18n="prevSeasonsTitle">Previous Seasons</h1>
+      <ul class="seasons-list">
         <li><strong>2025</strong> — <span data-i18n="season2025">Jordanian First Division, 7th place</span></li>
         <li><strong>2022</strong> — <span data-i18n="season2022">Jordanian First Division, 29 points (missed promotion)</span></li>
         <li><span data-i18n="moreSeasons">More season data will be added.</span></li>
       </ul>
     </section>
+
+    <!-- SQUAD PAGE (placeholder) -->
+    <section class="page" id="page-squad">
+      <h1 data-i18n="menuSquad">Squad</h1>
+      <p data-i18n="comingSoon">Coming soon.</p>
+    </section>
+
+    <!-- FIXTURES PAGE (placeholder) -->
+    <section class="page" id="page-fixtures">
+      <h1 data-i18n="menuFixtures">Fixtures</h1>
+      <p data-i18n="comingSoon">Coming soon.</p>
+    </section>
+
   </main>
 
   <script>
@@ -150,6 +177,7 @@
         season2025: "Jordanian First Division, 7th place",
         season2022: "Jordanian First Division, 29 points (missed promotion)",
         moreSeasons: "More season data will be added.",
+        comingSoon: "Coming soon.",
         toggleLabel: "العربية"
       },
       ar: {
@@ -163,6 +191,7 @@
         season2025: "دوري الدرجة الأولى الأردني، المركز السابع",
         season2022: "دوري الدرجة الأولى الأردني، 29 نقطة (فشل في الصعود)",
         moreSeasons: "سيتم إضافة المزيد من بيانات المواسم.",
+        comingSoon: "قريباً.",
         toggleLabel: "English"
       }
     };
@@ -181,7 +210,6 @@
       localStorage.setItem("lang", lang);
     }
 
-    // Language toggle
     document.getElementById("langToggle").addEventListener("click", () => {
       const current = document.documentElement.lang === "ar" ? "ar" : "en";
       applyLanguage(current === "ar" ? "en" : "ar");
@@ -191,16 +219,34 @@
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("overlay");
 
+    function closeSidebar() {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    }
+
     document.getElementById("hamburgerBtn").addEventListener("click", () => {
       sidebar.classList.add("open");
       overlay.classList.add("show");
     });
 
-    overlay.addEventListener("click", () => {
-      sidebar.classList.remove("open");
-      overlay.classList.remove("show");
+    overlay.addEventListener("click", closeSidebar);
+
+    // Page switching
+    function showPage(pageId) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      const target = document.getElementById("page-" + pageId);
+      if (target) target.classList.add("active");
+      closeSidebar();
+    }
+
+    document.querySelectorAll(".sidebar a[data-page]").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        showPage(link.dataset.page);
+      });
     });
 
+    // Load saved language
     const savedLang = localStorage.getItem("lang") || "en";
     applyLanguage(savedLang);
   </script>
