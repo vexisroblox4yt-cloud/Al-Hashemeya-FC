@@ -16,8 +16,12 @@
       padding: 12px 20px;
       background: #0b3d2e;
       color: #fff;
+      position: relative;
+      z-index: 100;
     }
     .brand { font-weight: 700; font-size: 1.1rem; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
     .lang-btn {
       background: transparent;
       color: #fff;
@@ -28,6 +32,74 @@
       font-size: 0.95rem;
     }
     .lang-btn:hover { background: rgba(255,255,255,0.15); }
+
+    /* Hamburger button */
+    .hamburger {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100%;
+      background: #0b3d2e;
+      color: #fff;
+      padding: 80px 0 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 90;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar a {
+      display: block;
+      padding: 14px 24px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar a:hover { background: rgba(255,255,255,0.1); }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 80;
+    }
+    .overlay.show { opacity: 1; pointer-events: auto; }
+
+    /* Content */
+    .content { padding: 40px 20px; text-align: center; }
+
+    /* RTL adjustments */
+    [dir="rtl"] .sidebar {
+      left: auto;
+      right: 0;
+      transform: translateX(100%);
+    }
+    [dir="rtl"] .sidebar.open { transform: translateX(0); }
     [dir="rtl"] .site-header { flex-direction: row-reverse; }
   </style>
 </head>
@@ -35,12 +107,34 @@
 
   <header class="site-header">
     <div class="brand" data-i18n="brand">Al Hashemeya SC</div>
-    <button id="langToggle" class="lang-btn" type="button">العربية</button>
+    <div class="header-right">
+      <button id="langToggle" class="lang-btn" type="button">العربية</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
-  <main style="padding: 40px 20px; text-align: center;">
+  <aside class="sidebar" id="sidebar">
+    <a href="#" data-i18n="menuPrevious">Previous Seasons</a>
+    <a href="#" data-i18n="menuSquad">Squad</a>
+    <a href="#" data-i18n="menuFixtures">Fixtures</a>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <main class="content">
     <h1 data-i18n="welcome">Welcome to Al Hashemeya SC</h1>
     <p data-i18n="subtitle">Home of the club — Prince Mohammed Stadium, Zarqa</p>
+
+    <section style="margin-top: 50px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <h2 data-i18n="prevSeasonsTitle">Previous Seasons</h2>
+      <ul style="margin-top: 16px; line-height: 2;">
+        <li><strong>2025</strong> — <span data-i18n="season2025">Jordanian First Division, 7th place</span></li>
+        <li><strong>2022</strong> — <span data-i18n="season2022">Jordanian First Division, 29 points (missed promotion)</span></li>
+        <li><span data-i18n="moreSeasons">More season data will be added.</span></li>
+      </ul>
+    </section>
   </main>
 
   <script>
@@ -49,12 +143,26 @@
         brand: "Al Hashemeya SC",
         welcome: "Welcome to Al Hashemeya SC",
         subtitle: "Home of the club — Prince Mohammed Stadium, Zarqa",
+        menuPrevious: "Previous Seasons",
+        menuSquad: "Squad",
+        menuFixtures: "Fixtures",
+        prevSeasonsTitle: "Previous Seasons",
+        season2025: "Jordanian First Division, 7th place",
+        season2022: "Jordanian First Division, 29 points (missed promotion)",
+        moreSeasons: "More season data will be added.",
         toggleLabel: "العربية"
       },
       ar: {
         brand: "نادي الهاشمية",
         welcome: "مرحباً بكم في نادي الهاشمية",
         subtitle: "بيت النادي — ملعب الأمير محمد، الزرقاء",
+        menuPrevious: "المواسم السابقة",
+        menuSquad: "الفريق",
+        menuFixtures: "المباريات",
+        prevSeasonsTitle: "المواسم السابقة",
+        season2025: "دوري الدرجة الأولى الأردني، المركز السابع",
+        season2022: "دوري الدرجة الأولى الأردني، 29 نقطة (فشل في الصعود)",
+        moreSeasons: "سيتم إضافة المزيد من بيانات المواسم.",
         toggleLabel: "English"
       }
     };
@@ -73,9 +181,24 @@
       localStorage.setItem("lang", lang);
     }
 
+    // Language toggle
     document.getElementById("langToggle").addEventListener("click", () => {
       const current = document.documentElement.lang === "ar" ? "ar" : "en";
       applyLanguage(current === "ar" ? "en" : "ar");
+    });
+
+    // Sidebar toggle
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    document.getElementById("hamburgerBtn").addEventListener("click", () => {
+      sidebar.classList.add("open");
+      overlay.classList.add("show");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
     });
 
     const savedLang = localStorage.getItem("lang") || "en";
