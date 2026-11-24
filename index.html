@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al Hashemeya SC</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #0b3d2e;
+      color: #fff;
+    }
+    .brand { font-weight: 700; font-size: 1.1rem; }
+    .lang-btn {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.6);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.15); }
+    [dir="rtl"] .site-header { flex-direction: row-reverse; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand" data-i18n="brand">Al Hashemeya SC</div>
+    <button id="langToggle" class="lang-btn" type="button">العربية</button>
+  </header>
+
+  <main style="padding: 40px 20px; text-align: center;">
+    <h1 data-i18n="welcome">Welcome to Al Hashemeya SC</h1>
+    <p data-i18n="subtitle">Home of the club — Prince Mohammed Stadium, Zarqa</p>
+  </main>
+
+  <script>
+    const translations = {
+      en: {
+        brand: "Al Hashemeya SC",
+        welcome: "Welcome to Al Hashemeya SC",
+        subtitle: "Home of the club — Prince Mohammed Stadium, Zarqa",
+        toggleLabel: "العربية"
+      },
+      ar: {
+        brand: "نادي الهاشمية",
+        welcome: "مرحباً بكم في نادي الهاشمية",
+        subtitle: "بيت النادي — ملعب الأمير محمد، الزرقاء",
+        toggleLabel: "English"
+      }
+    };
+
+    function applyLanguage(lang) {
+      const t = translations[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) el.textContent = t[key];
+      });
+
+      document.getElementById("langToggle").textContent = t.toggleLabel;
+      localStorage.setItem("lang", lang);
+    }
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      const current = document.documentElement.lang === "ar" ? "ar" : "en";
+      applyLanguage(current === "ar" ? "en" : "ar");
+    });
+
+    const savedLang = localStorage.getItem("lang") || "en";
+    applyLanguage(savedLang);
+  </script>
+
+</body>
+</html>
