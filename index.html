@@ -89,17 +89,32 @@
 
     .content { padding: 40px 20px; text-align: center; }
 
-    /* Pages: hidden by default */
-    .page { display: none; }
-    .page.active { display: block; }
-
-    .seasons-list {
-      margin-top: 30px;
+    /* Seasons table */
+    .seasons-table {
+      margin: 30px auto 0;
+      max-width: 640px;
+      width: 100%;
+      border-collapse: collapse;
       text-align: left;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 2;
+      font-size: 0.95rem;
+    }
+    .seasons-table th,
+    .seasons-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    .seasons-table th {
+      background: #0b3d2e;
+      color: #fff;
+      font-weight: 600;
+    }
+    .seasons-table tr:nth-child(even) td {
+      background: #f5f5f5;
+    }
+    .seasons-note {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #666;
     }
 
     [dir="rtl"] .sidebar {
@@ -109,7 +124,7 @@
     }
     [dir="rtl"] .sidebar.open { transform: translateX(0); }
     [dir="rtl"] .site-header { flex-direction: row-reverse; }
-    [dir="rtl"] .seasons-list { text-align: right; }
+    [dir="rtl"] .seasons-table { text-align: right; }
   </style>
 </head>
 <body>
@@ -134,30 +149,55 @@
 
   <main class="content">
 
-    <!-- HOME PAGE -->
-    <section class="page active" id="page-home">
+    <!-- HOME PAGE (visible by default) -->
+    <section class="page" id="page-home" style="display:block;">
       <h1 data-i18n="welcome">Welcome to Al Hashemeya SC</h1>
       <p data-i18n="subtitle">Home of the club — Prince Mohammed Stadium, Zarqa</p>
     </section>
 
-    <!-- PREVIOUS SEASONS PAGE -->
-    <section class="page" id="page-previous">
+    <!-- PREVIOUS SEASONS PAGE (hidden) -->
+    <section class="page" id="page-previous" style="display:none;">
       <h1 data-i18n="prevSeasonsTitle">Previous Seasons</h1>
-      <ul class="seasons-list">
-        <li><strong>2025</strong> — <span data-i18n="season2025">Jordanian First Division, 7th place</span></li>
-        <li><strong>2022</strong> — <span data-i18n="season2022">Jordanian First Division, 29 points (missed promotion)</span></li>
-        <li><span data-i18n="moreSeasons">More season data will be added.</span></li>
-      </ul>
+
+      <table class="seasons-table">
+        <thead>
+          <tr>
+            <th data-i18n="colSeason">Season</th>
+            <th data-i18n="colLeague">League</th>
+            <th data-i18n="colPos">Position</th>
+            <th data-i18n="colPts">Points</th>
+            <th data-i18n="colGD">GD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025</td>
+            <td data-i18n="leagueFirstDiv">Jordanian First Division</td>
+            <td>7th</td>
+            <td>20</td>
+            <td>+12</td>
+          </tr>
+          <tr>
+            <td>2022</td>
+            <td data-i18n="leagueFirstDiv">Jordanian First Division</td>
+            <td>—</td>
+            <td>29</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="seasons-note" data-i18n="moreSeasons">More season data will be added.</p>
     </section>
 
-    <!-- SQUAD PAGE (placeholder) -->
-    <section class="page" id="page-squad">
+    <!-- SQUAD PAGE (hidden) -->
+    <section class="page" id="page-squad" style="display:none;">
       <h1 data-i18n="menuSquad">Squad</h1>
       <p data-i18n="comingSoon">Coming soon.</p>
     </section>
 
-    <!-- FIXTURES PAGE (placeholder) -->
-    <section class="page" id="page-fixtures">
+    <!-- FIXTURES PAGE (hidden) -->
+    <section class="page" id="page-fixtures" style="display:none;">
       <h1 data-i18n="menuFixtures">Fixtures</h1>
       <p data-i18n="comingSoon">Coming soon.</p>
     </section>
@@ -174,8 +214,12 @@
         menuSquad: "Squad",
         menuFixtures: "Fixtures",
         prevSeasonsTitle: "Previous Seasons",
-        season2025: "Jordanian First Division, 7th place",
-        season2022: "Jordanian First Division, 29 points (missed promotion)",
+        colSeason: "Season",
+        colLeague: "League",
+        colPos: "Position",
+        colPts: "Points",
+        colGD: "GD",
+        leagueFirstDiv: "Jordanian First Division",
         moreSeasons: "More season data will be added.",
         comingSoon: "Coming soon.",
         toggleLabel: "العربية"
@@ -188,8 +232,12 @@
         menuSquad: "الفريق",
         menuFixtures: "المباريات",
         prevSeasonsTitle: "المواسم السابقة",
-        season2025: "دوري الدرجة الأولى الأردني، المركز السابع",
-        season2022: "دوري الدرجة الأولى الأردني، 29 نقطة (فشل في الصعود)",
+        colSeason: "الموسم",
+        colLeague: "الدوري",
+        colPos: "المركز",
+        colPts: "النقاط",
+        colGD: "فارق الأهداف",
+        leagueFirstDiv: "دوري الدرجة الأولى الأردني",
         moreSeasons: "سيتم إضافة المزيد من بيانات المواسم.",
         comingSoon: "قريباً.",
         toggleLabel: "English"
@@ -233,9 +281,11 @@
 
     // Page switching
     function showPage(pageId) {
-      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".page").forEach(p => {
+        p.style.display = "none";
+      });
       const target = document.getElementById("page-" + pageId);
-      if (target) target.classList.add("active");
+      if (target) target.style.display = "block";
       closeSidebar();
     }
 
