@@ -89,7 +89,6 @@
 
     .content { padding: 40px 20px; text-align: center; }
 
-    /* Seasons table */
     .seasons-table {
       margin: 30px auto 0;
       max-width: 640px;
@@ -178,6 +177,13 @@
             <td>+12</td>
           </tr>
           <tr>
+            <td>2024/25</td>
+            <td data-i18n="leagueFirstDiv">Jordanian First Division</td>
+            <td>5th</td>
+            <td>25</td>
+            <td>+5</td>
+          </tr>
+          <tr>
             <td>2022</td>
             <td data-i18n="leagueFirstDiv">Jordanian First Division</td>
             <td>—</td>
@@ -263,7 +269,6 @@
       applyLanguage(current === "ar" ? "en" : "ar");
     });
 
-    // Sidebar toggle
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("overlay");
 
@@ -279,7 +284,6 @@
 
     overlay.addEventListener("click", closeSidebar);
 
-    // Page switching
     function showPage(pageId) {
       document.querySelectorAll(".page").forEach(p => {
         p.style.display = "none";
@@ -296,7 +300,6 @@
       });
     });
 
-    // Load saved language
     const savedLang = localStorage.getItem("lang") || "en";
     applyLanguage(savedLang);
   </script>
