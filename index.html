@@ -89,9 +89,25 @@
 
     .content { padding: 40px 20px; text-align: center; }
 
+    .overview-info {
+      max-width: 640px;
+      margin: 30px auto 0;
+      text-align: left;
+      line-height: 2;
+    }
+    .overview-info dt {
+      font-weight: 700;
+      color: #0b3d2e;
+      margin-top: 14px;
+    }
+    .overview-info dd {
+      margin-left: 0;
+      color: #333;
+    }
+
     .seasons-table {
       margin: 30px auto 0;
-      max-width: 640px;
+      max-width: 680px;
       width: 100%;
       border-collapse: collapse;
       text-align: left;
@@ -114,6 +130,10 @@
       margin-top: 16px;
       font-size: 0.85rem;
       color: #666;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
     }
 
     [dir="rtl"] .sidebar {
@@ -124,6 +144,8 @@
     [dir="rtl"] .sidebar.open { transform: translateX(0); }
     [dir="rtl"] .site-header { flex-direction: row-reverse; }
     [dir="rtl"] .seasons-table { text-align: right; }
+    [dir="rtl"] .overview-info { text-align: right; }
+    [dir="rtl"] .seasons-note { text-align: right; }
   </style>
 </head>
 <body>
@@ -139,6 +161,7 @@
   </header>
 
   <aside class="sidebar" id="sidebar">
+    <a data-page="overview" data-i18n="menuOverview">Overview</a>
     <a data-page="previous" data-i18n="menuPrevious">Previous Seasons</a>
     <a data-page="squad" data-i18n="menuSquad">Squad</a>
     <a data-page="fixtures" data-i18n="menuFixtures">Fixtures</a>
@@ -148,10 +171,24 @@
 
   <main class="content">
 
-    <!-- HOME PAGE (visible by default) -->
-    <section class="page" id="page-home" style="display:block;">
-      <h1 data-i18n="welcome">Welcome to Al Hashemeya SC</h1>
+    <!-- OVERVIEW PAGE (visible by default) -->
+    <section class="page" id="page-overview" style="display:block;">
+      <h1 data-i18n="menuOverview">Overview</h1>
       <p data-i18n="subtitle">Home of the club — Prince Mohammed Stadium, Zarqa</p>
+
+      <dl class="overview-info">
+        <dt data-i18n="ovFounded">Founded</dt>
+        <dd>1979</dd>
+
+        <dt data-i18n="ovStadium">Home Stadium</dt>
+        <dd data-i18n="ovStadiumValue">Prince Mohammed Stadium, Zarqa</dd>
+
+        <dt data-i18n="ovLeague">Current League</dt>
+        <dd data-i18n="leagueFirstDiv">Jordanian First Division</dd>
+
+        <dt data-i18n="ovCity">City</dt>
+        <dd data-i18n="ovCityValue">Hashemiya, Zarqa, Jordan</dd>
+      </dl>
     </section>
 
     <!-- PREVIOUS SEASONS PAGE (hidden) -->
@@ -193,14 +230,14 @@
           <tr>
             <td>2022</td>
             <td data-i18n="leagueFirstDiv">Jordanian First Division</td>
-            <td>—</td>
+            <td>4th</td>
             <td>29</td>
-            <td>—</td>
+            <td>+14</td>
           </tr>
         </tbody>
       </table>
 
-      <p class="seasons-note" data-i18n="moreSeasons">More season data will be added.</p>
+      <p class="seasons-note" data-i18n="seasonsNote">2022 season: 13 matches, 9W 2D 2L, 21 goals scored, 7 conceded — one place short of promotion.</p>
     </section>
 
     <!-- SQUAD PAGE (hidden) -->
@@ -221,11 +258,17 @@
     const translations = {
       en: {
         brand: "Al Hashemeya SC",
-        welcome: "Welcome to Al Hashemeya SC",
-        subtitle: "Home of the club — Prince Mohammed Stadium, Zarqa",
+        menuOverview: "Overview",
         menuPrevious: "Previous Seasons",
         menuSquad: "Squad",
         menuFixtures: "Fixtures",
+        subtitle: "Home of the club — Prince Mohammed Stadium, Zarqa",
+        ovFounded: "Founded",
+        ovStadium: "Home Stadium",
+        ovStadiumValue: "Prince Mohammed Stadium, Zarqa",
+        ovLeague: "Current League",
+        ovCity: "City",
+        ovCityValue: "Hashemiya, Zarqa, Jordan",
         prevSeasonsTitle: "Previous Seasons",
         colSeason: "Season",
         colLeague: "League",
@@ -233,17 +276,23 @@
         colPts: "Points",
         colGD: "GD",
         leagueFirstDiv: "Jordanian First Division",
-        moreSeasons: "More season data will be added.",
+        seasonsNote: "2022 season: 13 matches, 9W 2D 2L, 21 goals scored, 7 conceded — one place short of promotion.",
         comingSoon: "Coming soon.",
         toggleLabel: "العربية"
       },
       ar: {
         brand: "نادي الهاشمية",
-        welcome: "مرحباً بكم في نادي الهاشمية",
-        subtitle: "بيت النادي — ملعب الأمير محمد، الزرقاء",
+        menuOverview: "نظرة عامة",
         menuPrevious: "المواسم السابقة",
         menuSquad: "الفريق",
         menuFixtures: "المباريات",
+        subtitle: "بيت النادي — ملعب الأمير محمد، الزرقاء",
+        ovFounded: "تأسس",
+        ovStadium: "الملعب",
+        ovStadiumValue: "ملعب الأمير محمد، الزرقاء",
+        ovLeague: "الدوري الحالي",
+        ovCity: "المدينة",
+        ovCityValue: "الهاشمية، الزرقاء، الأردن",
         prevSeasonsTitle: "المواسم السابقة",
         colSeason: "الموسم",
         colLeague: "الدوري",
@@ -251,7 +300,7 @@
         colPts: "النقاط",
         colGD: "فارق الأهداف",
         leagueFirstDiv: "دوري الدرجة الأولى الأردني",
-        moreSeasons: "سيتم إضافة المزيد من بيانات المواسم.",
+        seasonsNote: "موسم 2022: 13 مباراة، 9 فوز 2 تعادل 2 خسارة، 21 هدفاً سجلها و7 استقبلها — على بعد مركز واحد من الصعود.",
         comingSoon: "قريباً.",
         toggleLabel: "English"
       }
