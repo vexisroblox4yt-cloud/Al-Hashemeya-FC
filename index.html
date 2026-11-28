@@ -107,16 +107,17 @@
 
     .seasons-table {
       margin: 30px auto 0;
-      max-width: 680px;
+      max-width: 720px;
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
     .seasons-table th,
     .seasons-table td {
       padding: 10px 12px;
       border-bottom: 1px solid #ddd;
+      vertical-align: top;
     }
     .seasons-table th {
       background: #0b3d2e;
@@ -126,14 +127,41 @@
     .seasons-table tr:nth-child(even) td {
       background: #f5f5f5;
     }
-    .seasons-note {
-      margin-top: 16px;
+    .seasons-table td.playoff-cell {
       font-size: 0.85rem;
-      color: #666;
-      max-width: 680px;
-      margin-left: auto;
-      margin-right: auto;
+      color: #444;
+    }
+
+    /* Honours block */
+    .honours {
+      max-width: 720px;
+      margin: 40px auto 0;
       text-align: left;
+    }
+    .honours h2 {
+      color: #0b3d2e;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #0b3d2e;
+      padding-bottom: 6px;
+    }
+    .honour-card {
+      background: #f5f5f5;
+      border-left: 4px solid #c9a227;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border-radius: 4px;
+    }
+    .honour-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #0b3d2e;
+      margin-bottom: 6px;
+    }
+    .honour-detail {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.7;
     }
 
     [dir="rtl"] .sidebar {
@@ -145,7 +173,8 @@
     [dir="rtl"] .site-header { flex-direction: row-reverse; }
     [dir="rtl"] .seasons-table { text-align: right; }
     [dir="rtl"] .overview-info { text-align: right; }
-    [dir="rtl"] .seasons-note { text-align: right; }
+    [dir="rtl"] .honours { text-align: right; }
+    [dir="rtl"] .honour-card { border-left: none; border-right: 4px solid #c9a227; }
   </style>
 </head>
 <body>
@@ -203,6 +232,7 @@
             <th data-i18n="colPos">Position</th>
             <th data-i18n="colPts">Points</th>
             <th data-i18n="colGD">GD</th>
+            <th data-i18n="colPlayoffs">Playoffs</th>
           </tr>
         </thead>
         <tbody>
@@ -212,6 +242,7 @@
             <td>7th</td>
             <td>20</td>
             <td>+12</td>
+            <td>—</td>
           </tr>
           <tr>
             <td>2024/25</td>
@@ -219,6 +250,7 @@
             <td>5th</td>
             <td>25</td>
             <td>+5</td>
+            <td>—</td>
           </tr>
           <tr>
             <td>2023</td>
@@ -226,6 +258,7 @@
             <td>11th</td>
             <td>15</td>
             <td>-6</td>
+            <td>—</td>
           </tr>
           <tr>
             <td>2022</td>
@@ -233,11 +266,34 @@
             <td>4th</td>
             <td>29</td>
             <td>+14</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>2021</td>
+            <td data-i18n="leagueSecondDiv">Jordanian Second Division</td>
+            <td>2nd (Group)</td>
+            <td>13</td>
+            <td>+9</td>
+            <td class="playoff-cell" data-i18n="p2021Playoffs">
+              SF: beat Saham 1–0 agg. (1–0, 0–0)<br>
+              Final: beat Al-Aliya 3–0 (Champions)
+            </td>
           </tr>
         </tbody>
       </table>
 
-      <p class="seasons-note" data-i18n="seasonsNote">2022 season: 13 matches, 9W 2D 2L, 21 goals scored, 7 conceded — one place short of promotion.</p>
+      <!-- HONOURS -->
+      <div class="honours">
+        <h2 data-i18n="honoursTitle">Honours</h2>
+
+        <div class="honour-card">
+          <div class="honour-title" data-i18n="h2021Title">2021 — Jordanian Second Division League Champion</div>
+          <div class="honour-detail" data-i18n="h2021Detail">
+            Group stage: 7 matches, 4W 1D 2L, 14 scored, 5 conceded, GD +9, 13 pts (2nd in group).
+            Semi-final: beat Saham 1–0 on aggregate. Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SQUAD PAGE (hidden) -->
@@ -275,8 +331,13 @@
         colPos: "Position",
         colPts: "Points",
         colGD: "GD",
+        colPlayoffs: "Playoffs",
         leagueFirstDiv: "Jordanian First Division",
-        seasonsNote: "2022 season: 13 matches, 9W 2D 2L, 21 goals scored, 7 conceded — one place short of promotion.",
+        leagueSecondDiv: "Jordanian Second Division",
+        p2021Playoffs: "SF: beat Saham 1–0 agg. (1–0, 0–0)\nFinal: beat Al-Aliya 3–0 (Champions)",
+        honoursTitle: "Honours",
+        h2021Title: "2021 — Jordanian Second Division League Champion",
+        h2021Detail: "Group stage: 7 matches, 4W 1D 2L, 14 scored, 5 conceded, GD +9, 13 pts (2nd in group). Semi-final: beat Saham 1–0 on aggregate. Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.",
         comingSoon: "Coming soon.",
         toggleLabel: "العربية"
       },
@@ -299,8 +360,13 @@
         colPos: "المركز",
         colPts: "النقاط",
         colGD: "فارق الأهداف",
+        colPlayoffs: "الأدوار الإقصائية",
         leagueFirstDiv: "دوري الدرجة الأولى الأردني",
-        seasonsNote: "موسم 2022: 13 مباراة، 9 فوز 2 تعادل 2 خسارة، 21 هدفاً سجلها و7 استقبلها — على بعد مركز واحد من الصعود.",
+        leagueSecondDiv: "دوري الدرجة الثانية الأردني",
+        p2021Playoffs: "نصف النهائي: فاز على سحم 1–0 بمجموع المباراتين (1–0، 0–0)\nالنهائي: فاز على العالية 3–0 (البطل)",
+        honoursTitle: "الإنجازات",
+        h2021Title: "2021 — بطل دوري الدرجة الثانية الأردني",
+        h2021Detail: "دور المجموعات: 7 مباريات، 4 فوز 1 تعادل 2 خسارة، 14 هدفاً سجلها و5 استقبلها، فارق +9، 13 نقطة (الثاني في المجموعة). نصف النهائي: فاز على سحم 1–0 بمجموع المباريات. النهائي: فاز على العالية 3–0 على ملعب الأمير محمد في الزرقاء — وحسم الصعود إلى الدرجة الأولى.",
         comingSoon: "قريباً.",
         toggleLabel: "English"
       }
