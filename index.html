@@ -107,7 +107,7 @@
 
     .seasons-table {
       margin: 30px auto 0;
-      max-width: 720px;
+      max-width: 780px;
       width: 100%;
       border-collapse: collapse;
       text-align: left;
@@ -130,6 +130,11 @@
     .seasons-table td.playoff-cell {
       font-size: 0.85rem;
       color: #444;
+    }
+    .seasons-table td.cancelled-cell {
+      font-size: 0.85rem;
+      color: #a33;
+      font-style: italic;
     }
 
     /* Honours block */
@@ -226,7 +231,7 @@
             <th data-i18n="colPos">Position</th>
             <th data-i18n="colPts">Points</th>
             <th data-i18n="colGD">GD</th>
-            <th data-i18n="colPlayoffs">Playoffs</th>
+            <th data-i18n="colPlayoffs">Playoffs / Notes</th>
           </tr>
         </thead>
         <tbody>
@@ -272,6 +277,14 @@
               SF: beat Saham 1–0 agg. (1–0, 0–0)<br>
               Final: beat Al-Aliya 3–0 (Champions)
             </td>
+          </tr>
+          <tr>
+            <td>2020</td>
+            <td data-i18n="leagueSecondDiv">Jordanian Second Division</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td class="cancelled-cell" data-i18n="p2020Cancelled">League cancelled due to COVID-19</td>
           </tr>
         </tbody>
       </table>
@@ -328,10 +341,11 @@
         colPos: "Position",
         colPts: "Points",
         colGD: "GD",
-        colPlayoffs: "Playoffs",
+        colPlayoffs: "Playoffs / Notes",
         leagueFirstDiv: "Jordanian First Division",
         leagueSecondDiv: "Jordanian Second Division",
         p2021Playoffs: "SF: beat Saham 1–0 agg. (1–0, 0–0)\nFinal: beat Al-Aliya 3–0 (Champions)",
+        p2020Cancelled: "League cancelled due to COVID-19",
         h2021Title: "2021 — Jordanian Second Division League Champion",
         h2021Detail: "Group stage: 7 matches, 4W 1D 2L, 14 scored, 5 conceded, GD +9, 13 pts (2nd in group). Semi-final: beat Saham 1–0 on aggregate (1–0, 0–0). Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.",
         comingSoon: "Coming soon.",
@@ -357,10 +371,11 @@
         colPos: "المركز",
         colPts: "النقاط",
         colGD: "فارق الأهداف",
-        colPlayoffs: "الأدوار الإقصائية",
+        colPlayoffs: "الأدوار الإقصائية / ملاحظات",
         leagueFirstDiv: "دوري الدرجة الأولى الأردني",
         leagueSecondDiv: "دوري الدرجة الثانية الأردني",
         p2021Playoffs: "نصف النهائي: فاز على سحم 1–0 بمجموع المباراتين (1–0، 0–0)\nالنهائي: فاز على العالية 3–0 (البطل)",
+        p2020Cancelled: "أُلغي الدوري بسبب جائحة كوفيد-19",
         h2021Title: "2021 — بطل دوري الدرجة الثانية الأردني",
         h2021Detail: "دور المجموعات: 7 مباريات، 4 فوز 1 تعادل 2 خسارة، 14 هدفاً سجلها و5 استقبلها، فارق +9، 13 نقطة (الثاني في المجموعة). نصف النهائي: فاز على سحم 1–0 بمجموع المباراتين (1–0، 0–0). النهائي: فاز على العالية 3–0 على ملعب الأمير محمد في الزرقاء — وحسم الصعود إلى الدرجة الأولى.",
         comingSoon: "قريباً.",
