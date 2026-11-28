@@ -135,15 +135,8 @@
     /* Honours block */
     .honours {
       max-width: 720px;
-      margin: 40px auto 0;
+      margin: 30px auto 0;
       text-align: left;
-    }
-    .honours h2 {
-      color: #0b3d2e;
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      border-bottom: 2px solid #0b3d2e;
-      padding-bottom: 6px;
     }
     .honour-card {
       background: #f5f5f5;
@@ -192,6 +185,7 @@
   <aside class="sidebar" id="sidebar">
     <a data-page="overview" data-i18n="menuOverview">Overview</a>
     <a data-page="previous" data-i18n="menuPrevious">Previous Seasons</a>
+    <a data-page="honours" data-i18n="menuHonours">Honours</a>
     <a data-page="squad" data-i18n="menuSquad">Squad</a>
     <a data-page="fixtures" data-i18n="menuFixtures">Fixtures</a>
   </aside>
@@ -281,16 +275,18 @@
           </tr>
         </tbody>
       </table>
+    </section>
 
-      <!-- HONOURS -->
+    <!-- HONOURS PAGE (hidden) -->
+    <section class="page" id="page-honours" style="display:none;">
+      <h1 data-i18n="menuHonours">Honours</h1>
+
       <div class="honours">
-        <h2 data-i18n="honoursTitle">Honours</h2>
-
         <div class="honour-card">
           <div class="honour-title" data-i18n="h2021Title">2021 — Jordanian Second Division League Champion</div>
           <div class="honour-detail" data-i18n="h2021Detail">
             Group stage: 7 matches, 4W 1D 2L, 14 scored, 5 conceded, GD +9, 13 pts (2nd in group).
-            Semi-final: beat Saham 1–0 on aggregate. Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.
+            Semi-final: beat Saham 1–0 on aggregate (1–0, 0–0). Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.
           </div>
         </div>
       </div>
@@ -316,6 +312,7 @@
         brand: "Al Hashemeya SC",
         menuOverview: "Overview",
         menuPrevious: "Previous Seasons",
+        menuHonours: "Honours",
         menuSquad: "Squad",
         menuFixtures: "Fixtures",
         subtitle: "Home of the club — Prince Mohammed Stadium, Zarqa",
@@ -335,9 +332,8 @@
         leagueFirstDiv: "Jordanian First Division",
         leagueSecondDiv: "Jordanian Second Division",
         p2021Playoffs: "SF: beat Saham 1–0 agg. (1–0, 0–0)\nFinal: beat Al-Aliya 3–0 (Champions)",
-        honoursTitle: "Honours",
         h2021Title: "2021 — Jordanian Second Division League Champion",
-        h2021Detail: "Group stage: 7 matches, 4W 1D 2L, 14 scored, 5 conceded, GD +9, 13 pts (2nd in group). Semi-final: beat Saham 1–0 on aggregate. Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.",
+        h2021Detail: "Group stage: 7 matches, 4W 1D 2L, 14 scored, 5 conceded, GD +9, 13 pts (2nd in group). Semi-final: beat Saham 1–0 on aggregate (1–0, 0–0). Final: beat Al-Aliya 3–0 at Prince Mohammed Stadium, Zarqa — clinched promotion to the First Division.",
         comingSoon: "Coming soon.",
         toggleLabel: "العربية"
       },
@@ -345,6 +341,7 @@
         brand: "نادي الهاشمية",
         menuOverview: "نظرة عامة",
         menuPrevious: "المواسم السابقة",
+        menuHonours: "الإنجازات",
         menuSquad: "الفريق",
         menuFixtures: "المباريات",
         subtitle: "بيت النادي — ملعب الأمير محمد، الزرقاء",
@@ -364,9 +361,8 @@
         leagueFirstDiv: "دوري الدرجة الأولى الأردني",
         leagueSecondDiv: "دوري الدرجة الثانية الأردني",
         p2021Playoffs: "نصف النهائي: فاز على سحم 1–0 بمجموع المباراتين (1–0، 0–0)\nالنهائي: فاز على العالية 3–0 (البطل)",
-        honoursTitle: "الإنجازات",
         h2021Title: "2021 — بطل دوري الدرجة الثانية الأردني",
-        h2021Detail: "دور المجموعات: 7 مباريات، 4 فوز 1 تعادل 2 خسارة، 14 هدفاً سجلها و5 استقبلها، فارق +9، 13 نقطة (الثاني في المجموعة). نصف النهائي: فاز على سحم 1–0 بمجموع المباريات. النهائي: فاز على العالية 3–0 على ملعب الأمير محمد في الزرقاء — وحسم الصعود إلى الدرجة الأولى.",
+        h2021Detail: "دور المجموعات: 7 مباريات، 4 فوز 1 تعادل 2 خسارة، 14 هدفاً سجلها و5 استقبلها، فارق +9، 13 نقطة (الثاني في المجموعة). نصف النهائي: فاز على سحم 1–0 بمجموع المباراتين (1–0، 0–0). النهائي: فاز على العالية 3–0 على ملعب الأمير محمد في الزرقاء — وحسم الصعود إلى الدرجة الأولى.",
         comingSoon: "قريباً.",
         toggleLabel: "English"
       }
